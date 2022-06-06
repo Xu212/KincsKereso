@@ -5,20 +5,20 @@ public class LadaOsztaly {
     public static final String BRONZ_ALLITAS = "Az arany hazudik";
     private Szinek szin;
     private String allitas;
-    private boolean kincsnalaban;
+    private boolean kincsnalavan;
 
     public LadaOsztaly(Szinek szin, String allitas, boolean kincsnalaban) {
         this.szin = szin;
         this.allitas = allitas;
-        this.kincsnalaban = kincsnalaban;
+        this.kincsnalavan = kincsnalaban;
     }
 
     public LadaOsztaly(Szinek szin, String allitas) {
         this(szin, allitas, false);
     }
 
-    public boolean isKincsnalaban() {
-        return kincsnalaban;
+    public boolean isKincsnalavan() {
+        return kincsnalavan;
     }
 
     public String getAllitas() {
@@ -28,6 +28,12 @@ public class LadaOsztaly {
     public Szinek getSzin() {
         return szin;
     }
-    
+    public String KincsnalavanSzoveg(){
+        String valasz ="Üres";
+        if(isKincsnalavan()){
+            valasz = "Kincs";
+        }
+        return valasz;
+    }
     
 }

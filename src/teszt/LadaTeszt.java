@@ -10,17 +10,17 @@ public class LadaTeszt {
         lt.NalaVanTeszt();
     }
     private void NalaVanTeszt(){
-        LadaOsztaly[] Ladak ={new LadaOsztaly(Szinek.ARANY, LadaOsztaly.ARANY_ALLITAS),new LadaOsztaly(Szinek.EZUST, LadaOsztaly.EZUST_ALLITAS,true),new LadaOsztaly(Szinek.BRONZ, LadaOsztaly.BRONZ_ALLITAS)};
+        LadaOsztaly[] Ladak ={new LadaOsztaly(Szinek.ARANY),new LadaOsztaly(Szinek.EZUST),new LadaOsztaly(Szinek.BRONZ)};
         for (LadaOsztaly lada : Ladak) {
-            System.out.print(lada.getSzin()+": "+lada.getAllitas()+".   ");
+            System.out.print(lada.getSzin()+": "+lada.Allitas()+".   ");
         }
         Scanner scn = new Scanner(System.in);
         System.out.println("\nMelyik ládában van a kincs? ");
         String valasz = scn.nextLine();
         int ladaHelye = new LadaTeszt().LadaHely(valasz);
         if(ladaHelye<3){
-           String ladatartalma = Ladak[ladaHelye].KincsnalavanSzoveg();
-           assert ladatartalma.equals("Kincs"):"Nem abban a ládában van a kincs";
+           String ladatartalma = Ladak[ladaHelye].isKincsnalavan()?"Kincs":"Üres";
+           assert ladatartalma.equals("Kincs"):"rossz a teszt";
         }
         else{
             System.out.println("Ilyen láda nincs");

@@ -4,6 +4,17 @@
  */
 package nezet;
 
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import modell.LadaOsztaly;
+import modell.Szinek;
+
 /**
  *
  * @author matex
@@ -15,6 +26,61 @@ public class KincsKeresiGui extends javax.swing.JFrame {
      */
     public KincsKeresiGui() {
         initComponents();
+        jatek();
+    }
+
+    private void jatek() {
+        tartalomlb.setText("");
+        LadaOsztaly aranyLada = new LadaOsztaly(Szinek.ARANY);
+        LadaOsztaly ezustLada = new LadaOsztaly(Szinek.EZUST);
+        LadaOsztaly bronzLada = new LadaOsztaly(Szinek.BRONZ);
+        szinEsKepAllitas(aranyLada, aranybtn);
+        szinEsKepAllitas(ezustLada, ezustbtn);
+        szinEsKepAllitas(bronzLada, bronzbtn);
+        addLadaToButton(aranyLada, aranybtn);
+        addLadaToButton(ezustLada, ezustbtn);
+        addLadaToButton(bronzLada, bronzbtn);
+        allitasKiiratas(aranyLada, aranyAll);
+        allitasKiiratas(ezustLada, ezustAll);
+        allitasKiiratas(bronzLada, bronzAll);
+    }
+
+    private void allitasKiiratas(LadaOsztaly lada, JLabel allitas) {
+        allitas.setText(lada.Allitas());
+    }
+
+    private void szinEsKepAllitas(LadaOsztaly lada, JButton gomb) {
+        String szin = "";
+        if (lada.getSzin() == Szinek.ARANY) {
+            szin = "Arany";
+        } else if (lada.getSzin() == Szinek.EZUST) {
+            szin = "Ezüst";
+        } else if (lada.getSzin() == Szinek.BRONZ) {
+            szin = "Bronz";
+        }
+        kepAllitas(gomb, "/nezetKep/ladaKep.jpg");
+        gomb.setText(szin);
+    }
+
+    private void addLadaToButton(LadaOsztaly lada, JButton gomb) {
+        gomb.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tartalomlb.setText(lada.isKincsnalavan() ? "Kincs" : "Üres");
+                String kepHelye = lada.isKincsnalavan() ? "/nezetKep/kincsLada.png" : "/nezetKep/uresLada.jpg";
+                kepAllitas(gomb, kepHelye);
+            }
+        });
+    }
+
+    private void kepAllitas(JButton gomb, String kepHelye) {
+        try {
+            Image img = ImageIO.read(getClass().getResource(kepHelye));
+            gomb.setIcon(new ImageIcon(img));
+            gomb.setText("");
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
     }
 
     /**
@@ -36,59 +102,31 @@ public class KincsKeresiGui extends javax.swing.JFrame {
         bronzAll = new javax.swing.JLabel();
         ujjatekbtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        tartalomlb = new javax.swing.JLabel();
 
         jButton3.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setLayout(new java.awt.GridLayout(2, 3));
+
         aranybtn.setText("Arany");
+        jPanel1.add(aranybtn);
 
         ezustbtn.setText("Ezüst");
+        jPanel1.add(ezustbtn);
 
         bronzbtn.setText("Bronz");
+        jPanel1.add(bronzbtn);
 
         aranyAll.setText("jLabel3");
+        jPanel1.add(aranyAll);
 
         ezustAll.setText("jLabel4");
+        jPanel1.add(ezustAll);
 
         bronzAll.setText("jLabel5");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(aranybtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(ezustbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(bronzbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(96, 96, 96)
-                .addComponent(aranyAll)
-                .addGap(183, 183, 183)
-                .addComponent(ezustAll)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bronzAll)
-                .addGap(90, 90, 90))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ezustbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bronzbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(aranybtn, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(aranyAll)
-                    .addComponent(ezustAll)
-                    .addComponent(bronzAll)))
-        );
+        jPanel1.add(bronzAll);
 
         ujjatekbtn.setText("Új játék");
         ujjatekbtn.addActionListener(new java.awt.event.ActionListener() {
@@ -99,24 +137,24 @@ public class KincsKeresiGui extends javax.swing.JFrame {
 
         jLabel1.setText("Láda tartalma:");
 
-        jLabel2.setText(" ");
+        tartalomlb.setText(" ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(ujjatekbtn)
-                .addGap(102, 102, 102)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ujjatekbtn)
+                        .addGap(102, 102, 102)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tartalomlb, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 709, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,17 +163,17 @@ public class KincsKeresiGui extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ujjatekbtn)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41))
+                    .addComponent(tartalomlb))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 627, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void ujjatekbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ujjatekbtnActionPerformed
-        // TODO add your handling code here:
+        jatek();
     }//GEN-LAST:event_ujjatekbtnActionPerformed
 
     /**
@@ -151,8 +189,8 @@ public class KincsKeresiGui extends javax.swing.JFrame {
     private javax.swing.JButton ezustbtn;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel tartalomlb;
     private javax.swing.JButton ujjatekbtn;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,11 +1,8 @@
 kell egy láda osztály ami a színét tartalmazza és, hogy nála van e a kincs, és mit mond a láda.
 -szin:ENUM
--allitas:string
--kincsnalavan:boolean
-konstruktorok:
-egy ami minden tagot inicializál
-még egy ami csak a színét és az állítását inicializálja
+konstruktor:
+színét inicializálja
 metódusok:
-1. Ami vissza ad egy String-et, hogy nála van e a kincs
-2. Egy get-er ami meg adja az állítást
-3. Egy get-er ami a kincsnalavan értéket adja vissza
+1. egy get-er ami szint adja vissza
+2. egy ami a láda állításat adja vissza
+3. egy ami boolean-el tér vissza, hogy nála van e a kincs
